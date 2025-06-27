@@ -2,10 +2,44 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-red?logo=pytorch&logoColor=white)](https://pytorch.org/)
 
 > Author(s): Henry Yost (henry-AY), Jessy Garcia (jgarc826), Dmitry Sorokin (Dekamayaro)
 
 A <ins>Generative Pre-trained Transformer</ins> (GPT) is a type of artificial intelligence that understands and generates human-like text. We will be using the <a href="https://pytorch.org/docs/stable/nn.html"><ins>PyTorch.nn</a> (Neural network) library</ins> which houses transformer architecture. The goal of MonoGPT is to output linguistic text similar to humans' capabilities. Ultimately, we want the model to produce undifferentiable text (compared to a human). The model will have a range of languages, initially starting with English, and then moving forward to other languages. The majority and basis of the architecture come from Andrej Karpathy's <a href="https://github.com/karpathy/nanoGPT">nanoGPT</a> GitHub repo, however, all analyses and text files are independent and licensed uniquely.
+
+## Installation & Usage
+To install and run this project locally, please follow the written instructions below. Moreover, this installation guide assumes that you are working in a Python environment.
+
+### 1. Fork the Repository
+* Visit the GitHub repository: https://github.com/henry-AY/monoGPT.git
+* Fork the repository to create your own copy.
+
+### 2. Clone the Repository
+```
+git clone https://github.com/<your-username>/monoGPT.git
+cd monoGPT
+```
+
+### 3. Install dependencies
+Use `pip3` if python 3+ installation
+```
+pip install -r requirements.txt
+```
+
+### 4. Generate Sample Output
+```
+python3 GPT.py
+```
+
+This will allow you to run a sample output of the GPT.
+
+## Project Language Roadmap
+
+| Language | Status |
+| ---------| -------|
+| English Weights | ⏳ In Progress |
+| GUI | ⬜ Not Started |
 
 ## Transformer Architecture used in MonoGPT
 <p align="center">
@@ -24,15 +58,6 @@ The figure below (the left half of the transformer) is the Encoder.
 #### Step 1 - Input Embeddings
 
 It is important to note that the embedding process only happens in the bottom-most encoder, not each encoder. The encoder begins by converting the input into tokens--words, subwords, or characters--into vectors using embedding layers. The embeddings capture the semantic meaning of the tokens and convert them into numerical vectors.
-
-<details>
-<summary>Input Embeddings Example (Click to expand) </summary>
-<hr>
-
-> Finish
-
-<hr>
-</details>
 
 #### Step 2 - Positional Encoding
 
@@ -60,7 +85,7 @@ The encoder utilizes a specialized attention mechanism known as self-attention. 
 This mechanism allows the encoder to concentrate on various parts of the input sequence while processing each token. Attention scores are calculated based on a query, key, and value concept (QKV). A QKV is analogous to a basic retrieval system that is most likely used in numerous websites you use daily.
 * <b>Query:</b> A vector that represents a token from the input sequence in the attention mechanism.
 * <b>Key:</b> A vector in the attention mechanism that corresponds to each token in the input sequence.
-* <b>Value:</b> Each value is associated with a given key, and where value where the query and key have the highest attention score is the final output.
+* <b>Value:</b> Each value is associated with a given key, and the value where the query and key have the highest attention score is the final output.
 
 <details>
 <summary>Derivation of Scaled Dot-Product Attention (Click to expand) </summary>
@@ -77,7 +102,7 @@ Assuming that d and k are $d_k$-dimensional vectors of independent random variab
 
 #### Step 4 - Output of the Encoder
 
-The final encoder layer outputs a set of vectors, each representing a deep contextual understanding of the input sequence. These output vectors are passed in as the input for the decoder in a Transformer model. The process of encoding 'paves the path' for the decoder, to produce a based on the words, tokens, or characters with the highest attention. Moreover, a unique characteristic of the encoder, is you can have <i>N</i> encoder layers. Each layer is an independent neural network per se, which can explore and learn unique sides of attention, resulting in a significantly more diverse conclusion.
+The final encoder layer outputs a set of vectors, each representing a deep contextual understanding of the input sequence. These output vectors are passed in as the input for the decoder in a Transformer model. The process of encoding 'paves the path' for the decoder to produce a sequence based on the words, tokens, or characters with the highest attention. Moreover, a unique characteristic of the encoder is that you can have <i>N</i> encoder layers. Each layer is an independent neural network per se, which can explore and learn unique sides of attention, resulting in a significantly more diverse conclusion.
 
 ### <ins>Decoder Workflow</ins>
 
@@ -121,7 +146,7 @@ During operation, the decoder adds the newly generated output to its existing in
 
 #### 2/21/25
 
-To normalize the training loss and validation loss, we averaged the values [(trainloss + valloss) / 2] to get a loss graph, which follows a typical and expected loss curve. There is a rapid drop, which is expected because the model is learning the basic patterns in the data. At t = ~1000, we see a noticeable increase in the flattening of the curve (especially compared to t = ~500). This could mean that the model is beginning to converge. At t = ~1500 to 2800 iterations, the loss stabilizes quite significantly, which possibly indicates diminishing returns of the training, and the model is near convergence. To fix this, we plan on training on a new dataset and tweak the hyperparameters.  
+To normalize the training loss and validation loss, we averaged the values [(trainloss + valloss) / 2] to get a loss graph, which follows a typical and expected loss curve. There is a rapid drop, which is expected because the model is learning the basic patterns in the data. At t = ~1000, we see a noticeable increase in the flattening of the curve (especially compared to t = ~500). This could mean that the model is beginning to converge. At t = ~1500 to 2800 iterations, the loss stabilizes quite significantly, which possibly indicates diminishing returns of the training, and the model is near convergence. To address this, we plan to train on a new dataset and adjust the hyperparameters.  
 
 <p align="center">
   <img src="readme_files/trainloss_valloss_graph.png" width="" height=""/>
