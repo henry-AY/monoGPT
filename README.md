@@ -39,7 +39,7 @@ This will allow you to run a sample output of the GPT.
 | Language | Status |
 | ---------| -------|
 | English Weights | ⏳ In Progress |
-| GUI | ⬜ Not Started |
+| GUI | ⏳ In Progress |
 
 ## Transformer Architecture used in MonoGPT
 <p align="center">
