@@ -11,6 +11,9 @@ A <ins>Generative Pre-trained Transformer</ins> (GPT) is a type of artificial in
 ## Installation & Usage
 To install and run this project locally, please follow the written instructions below. Moreover, this installation guide assumes that you are working in a Python environment.
 
+> [!CAUTION]
+> THE INSTALLATION IS NOT UP TO DATE WITH REACT AND NODE.JS
+
 ### 1. Fork the Repository
 * Visit the GitHub repository: https://github.com/henry-AY/monoGPT.git
 * Fork the repository to create your own copy.
