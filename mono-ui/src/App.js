@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import './App.css';
+import linkedinIcon from './icons/linkedin.png';
+import githubIcon from './icons/github.png';
+
 
 export default function App() {
   const [mode, setMode] = useState(null); // "train" or "generate"
@@ -32,8 +35,48 @@ export default function App() {
   };
 
   return (
+    <>
+    <motion.div
+      className="sidebar"
+      initial={{ width: "30px" }}
+      whileHover={{ width: "250px" }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+    >
+      <div className="sidebar-content">
+        <h2>MonoGPT</h2>
+        <hr></hr>
+        <p>LLM-monoGPT is a large language model generative Pre-trained Transformer using neural networks and transformer architecture to generate human-like english text.</p>
+
+        <p>Currently, the model has around ~85.1M paramaters! </p>
+        
+        <h3>Links</h3>
+        <p>Inspiration: <a href="https://github.com/karpathy/nanoGPT">nanoGPT</a> by Andrej Karpathy</p>
+
+        <p className="author">Author: henry-AY</p>
+
+        <div className="social-icons">
+          <a
+            href="https://www.linkedin.com/in/henry-yost/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={linkedinIcon} alt="LinkedIn" />
+          </a>
+          <a
+            href="https://github.com/henry-AY"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={githubIcon} alt="GitHub" />
+          </a>
+        </div>
+        <p className="date">Created: Jun 27, 2025</p>
+      </div>
+    </motion.div>
+
+
     <div className="app-container">
-      <h1>🧠 monoGPT UI</h1>
+      <h1>Welcome to MonoGPT!</h1>
       <div className="button-row">
         <motion.button
           className="circle-button"
@@ -74,5 +117,6 @@ export default function App() {
         </motion.div>
       )}
     </div>
+    </>
   );
 }
