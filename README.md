@@ -1,13 +1,13 @@
-# MultilangGPT
+# MonoGPT
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/)
 
 > Author(s): Henry Yost (henry-AY), Jessy Garcia (jgarc826), Dmitry Sorokin (Dekamayaro)
 
-A <ins>Generative Pre-trained Transformer</ins> (GPT) is a type of artificial intelligence that understands and generates human-like text. We will be using the <a href="https://pytorch.org/docs/stable/nn.html"><ins>PyTorch.nn</a> (Neural network) library</ins> which houses transformer architecture. The goal of multilangGPT is to output linguistic text similar to humans' capabilities. Ultimately, we want the model to produce undifferentiable text (compared to a human). The model will have a range of languages, initially starting with English, and then moving forward to other languages. The majority and basis of the architecture come from Andrej Karpathy's <a href="https://github.com/karpathy/nanoGPT">nanoGPT</a> GitHub repo, however, all analyses and text files are independent and licensed uniquely.
+A <ins>Generative Pre-trained Transformer</ins> (GPT) is a type of artificial intelligence that understands and generates human-like text. We will be using the <a href="https://pytorch.org/docs/stable/nn.html"><ins>PyTorch.nn</a> (Neural network) library</ins> which houses transformer architecture. The goal of MonoGPT is to output linguistic text similar to humans' capabilities. Ultimately, we want the model to produce undifferentiable text (compared to a human). The model will have a range of languages, initially starting with English, and then moving forward to other languages. The majority and basis of the architecture come from Andrej Karpathy's <a href="https://github.com/karpathy/nanoGPT">nanoGPT</a> GitHub repo, however, all analyses and text files are independent and licensed uniquely.
 
-## Transformer Architecture used in multilangGPT
+## Transformer Architecture used in MonoGPT
 <p align="center">
   <img src="readme_files/Transformer.png" width="400" height="675"/>
 </p>
@@ -55,7 +55,7 @@ As mentioned above, the following functions allow the model to encode sequence o
 
 #### Step 3 - Multi-Headed Self-Attention
 
-The encoder utilizes a specialized attention mechanism known as self-attention. Self-attention is how the model relates each word in the input with other words. This step differs for each model, as some are token, word, or character-based (multilangGPT is a character-based encoder). 
+The encoder utilizes a specialized attention mechanism known as self-attention. Self-attention is how the model relates each word in the input with other words. This step differs for each model, as some are token, word, or character-based (MonoGPT is a character-based encoder). 
 
 This mechanism allows the encoder to concentrate on various parts of the input sequence while processing each token. Attention scores are calculated based on a query, key, and value concept (QKV). A QKV is analogous to a basic retrieval system that is most likely used in numerous websites you use daily.
 * <b>Query:</b> A vector that represents a token from the input sequence in the attention mechanism.
