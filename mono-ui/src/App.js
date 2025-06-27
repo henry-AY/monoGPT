@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import './App.css';
 import linkedinIcon from './icons/linkedin.png';
 import githubIcon from './icons/github.png';
+import Aurora from './Aurora'; // adjust path if needed
 
 
 export default function App() {
@@ -36,6 +37,14 @@ export default function App() {
 
   return (
     <>
+
+    <Aurora
+      colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
+      blend={0.8}
+      amplitude={0.5}
+      speed={0.5}
+    />
+
     <motion.div
       className="sidebar"
       initial={{ width: "30px" }}
@@ -74,9 +83,11 @@ export default function App() {
       </div>
     </motion.div>
 
+  <div className="app-container">
+    <h1 className="title">Welcome to MonoGPT!</h1>
+    <h2> Scroll down to generate </h2>
 
-    <div className="app-container">
-      <h1>Welcome to MonoGPT!</h1>
+    <div className="controls-container">
       <div className="button-row">
         <motion.button
           className="circle-button"
@@ -117,6 +128,14 @@ export default function App() {
         </motion.div>
       )}
     </div>
+  </div>
+
+    
+  <div className="footer-stats">
+    <p>Validation Loss: 0.012 &nbsp; | &nbsp; Training Loss: 0.018 &nbsp; | &nbsp; Epoch: 12 &nbsp; | &nbsp; Params: 85.1M</p>
+  </div>
+
+
     </>
   );
 }

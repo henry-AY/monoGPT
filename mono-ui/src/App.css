@@ -5,15 +5,35 @@
   background-color: #0a0a0a;
   color: #cccccc;
   min-height: 100vh;
+  z-index: 2;
+}
+
+.title {
+  text-align:  center;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 2rem;
+  background-color: #0a0a0a;
+  color: #cccccc;
+  font-size: 10rem;
+  z-index: 1;
+}
+
+.controls-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* spacing between buttons and status */
+  margin-top: 10rem; /* or whatever vertical spacing you want */
+  margin-bottom: 30rem;
 }
 
 .button-row {
   display: flex;
   justify-content: center;
   gap: 2rem;
-  margin-top: 10rem;
   position: relative;
   height: 120px; /* prevent layout jump */
+  z-index: 2;
 }
 
 .circle-button {
@@ -76,7 +96,7 @@
   color: #cccccc;
   overflow: hidden;
   box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-  z-index: 70;
+  z-index: 4;
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -142,4 +162,18 @@
 .social-icons img:hover {
   transform: scale(1.2);
   opacity: 1;
+}
+
+.footer-stats {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #111111;
+  color: #aaaaaa;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  text-align: center;
+  box-shadow: 0 -1px 3px rgba(0,0,0,0.3);
+  z-index: 3;
 }
