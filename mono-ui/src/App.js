@@ -66,9 +66,15 @@ export default function App() {
             <li>Model weights trained from scratch using PyTorch</li>
             <li>Model weights saved as checkpoints and final</li>
             <li>React and Node.js frontend</li>
-            <li>AWS Integration Plan</li>
+            <li>AWS Integration Plan</li> 
           </ul>
 
+          <h3>Tech Stack</h3>
+          <ul className="sidebar-list">
+            <li>React + Framer Motion</li>
+            <li>WebGL(OGL)</li>
+            <li>PyTorch + Python (Backend)</li>
+          </ul>
 
           <p className="author">Author: henry-AY</p>
 
@@ -81,6 +87,14 @@ export default function App() {
             </a>
           </div>
           <p className="date">Created: Jun 27, 2025</p>
+        </div>
+
+        <div className="sidebar-tech-icons">
+          <img src="/logos/python.svg" alt="Python" title="Python" /> 
+          <img src="/logos/pytorch.svg" alt="PyTorch" title="PyTorch" />
+          <img src="/logos/numpy.svg" alt="NumPy" title="NumPy" />
+          <img src="/logos/webgl.svg" alt="WebGL" title="WebGL" />
+          <img src="/logos/react.svg" alt="React" title="React" />
         </div>
       </motion.div>
 
