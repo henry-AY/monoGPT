@@ -55,10 +55,10 @@ body, html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* you can change to 'center' if you want vertical center */
+  justify-content: flex-start;
   padding-top: 4rem;
   padding-bottom: 8rem;
-  text-align: center; /* <-- this helps center inline elements */
+  text-align: center;
 }
 
 .button-row {
@@ -102,7 +102,7 @@ body, html {
   background: #1a1a1a;
   border-radius: 10px;
   overflow: hidden;
-  margin: 1rem auto;        /* <-- ensures it’s centered horizontally */
+  margin: 1rem auto;
 }
 
 .progress-fill {
@@ -121,7 +121,7 @@ body, html {
   max-width: 700px;
   color: #dddddd;
   box-shadow: 0 0 10px rgba(255,255,255,0.05);
-  text-align: left;         /* keeps text aligned, but box itself centered */
+  text-align: left;
   margin-left: auto;
   margin-right: auto;
 }
@@ -157,7 +157,7 @@ body, html {
   opacity: 1;
   pointer-events: none;
   z-index: 5;
-  background-color: #1c1c1c;  /* matches sidebar or body background */
+  background-color: #1c1c1c;
   border-radius: 3px;
   padding: 2px 4px;
   transition: content 0.3s, opacity 0.3s;
