@@ -3,7 +3,9 @@ import { motion } from 'framer-motion';
 import './App.css';
 import linkedinIcon from './icons/linkedin.png';
 import githubIcon from './icons/github.png';
-import Aurora from './Aurora'; // adjust path if needed
+import Aurora from './Aurora';
+import GradientText from './GradientText';
+
 
 export default function App() {
   const [mode, setMode] = useState(null); // "train" or "generate"
@@ -56,8 +58,17 @@ export default function App() {
 
           <p>Currently, the model has around ~85.1M paramaters! </p>
 
-          <h3>Links</h3>
-          <p>Inspiration: <a href="https://github.com/karpathy/nanoGPT">nanoGPT</a> by Andrej Karpathy</p>
+          <p>My inspiration for the project came from <a href="https://github.com/karpathy/nanoGPT">nanoGPT</a> by Andrej Karpathy, which I used as the base. I expanded upon nanoGPT, by designined a GUI, tweaking the hyperparamters, and building upon the existing structure such as implementing epoch checkpoints. </p>
+
+          <h3>Features</h3>
+          <ul className="sidebar-list">
+            <li>Character-level tokenization and generation</li>
+            <li>Model weights trained from scratch using PyTorch</li>
+            <li>Model weights saved as checkpoints and final</li>
+            <li>React and Node.js frontend</li>
+            <li>AWS Integration Plan</li>
+          </ul>
+
 
           <p className="author">Author: henry-AY</p>
 
@@ -75,7 +86,14 @@ export default function App() {
 
       <div className="hero-section">
         <h1 className="title">Welcome to MonoGPT!</h1>
-        <h2 className="scroll-hint">Scroll down to generate text</h2>
+        <GradientText
+          colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]}
+          animationSpeed={5}
+          showBorder={false}
+          className="scroll-prompt"
+        >
+          Scroll down to generate
+        </GradientText>
       </div>
 
       <div className="main-section">
