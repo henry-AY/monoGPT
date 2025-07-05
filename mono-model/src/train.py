@@ -37,7 +37,7 @@ def get_batch(split):
     return x, y
 
 @torch.no_grad()
-def estimate_loss():
+def estimate_loss(model):
     out = {}
     model.eval()
     for split in ['train', 'val']:
@@ -77,11 +77,12 @@ def load_checkpoint(path, model, optimizer):
 checkpoint_path = config.BASE_DIR.parent / 'model' / 'checkpoint.pth'
 logs_path = config.BASE_DIR.parent / 'output' / 'datalogs' / 'training_log.csv'
 
-model = BigramLanguageModel(vocab_size).to(config.device)
-optimizer = torch.optim.AdamW(model.parameters(), lr = config.learning_rate)
-model.train()
 
 def main(num_user_epochs: int = 1):
+    model = BigramLanguageModel(vocab_size).to(config.device)
+    optimizer = torch.optim.AdamW(model.parameters(), lr = config.learning_rate)
+    model.train()
+
     # Load checkpoint if exists
     start_epoch, start_loss = load_checkpoint(checkpoint_path, model, optimizer)
 
@@ -114,7 +115,7 @@ def main(num_user_epochs: int = 1):
 
             save_checkpoint(model, optimizer, epoch, loss.item(), checkpoint_path)
 
-            losses = estimate_loss()
+            losses = estimate_loss(model)
             print(f"Epoch {epoch}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
 
     model_state = config.BASE_DIR.parent / 'model' / 'final_model_weights.pth'
@@ -122,6 +123,8 @@ def main(num_user_epochs: int = 1):
 
     torch.save(model.state_dict(), model_state)
     torch.save(optimizer.state_dict(), optimizer_state)
+
+    print(f"Training completed up to epoch {num_epochs}")
 
     return model, optimizer
 
