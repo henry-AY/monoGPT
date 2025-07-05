@@ -6,10 +6,21 @@ The `README.md` is currently not up to date and will be updated shortly.
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-red?logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![NumPy](https://img.shields.io/badge/NumPy-013243?logo=numpy&logoColor=white)](https://numpy.org/)
+[![WebGL](https://img.shields.io/badge/WebGL-990000?logo=webgl&logoColor=white)](https://www.khronos.org/webgl/)
+[![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-43853D?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 
 > Author(s): Henry Yost (henry-AY), Jessy Garcia (jgarc826), Dmitry Sorokin (Dekamayaro)
 
-A <ins>Generative Pre-trained Transformer</ins> (GPT) is a type of artificial intelligence that understands and generates human-like text. We will be using the <a href="https://pytorch.org/docs/stable/nn.html"><ins>PyTorch.nn</a> (Neural network) library</ins> which houses transformer architecture. The goal of MonoGPT is to output linguistic text similar to humans' capabilities. Ultimately, we want the model to produce undifferentiable english text (compared to a human). The majority and basis of the architecture come from Andrej Karpathy's <a href="https://github.com/karpathy/nanoGPT">nanoGPT</a> GitHub repo, however, all analyses and text files are independent and licensed uniquely.
+<p align="center">
+  <img src="readme_files/Page_1.png" width="" height=""/>
+</p>
+
+MonoGPT includes a front-end application, used for training and generating output. The interface is designed to be intuitive and interactive; users can initiate model training directly from the GUI or request text generation based on trained weights. Each action is visually represented in the UI using animated button transitions and loading indicators that simulate the backend process.
+
+**Additional Info**: A <ins>Generative Pre-trained Transformer</ins> (GPT) is a type of artificial intelligence that understands and generates human-like text. We will be using the <a href="https://pytorch.org/docs/stable/nn.html"><ins>PyTorch.nn</a> (Neural network) library</ins> which houses transformer architecture. The goal of MonoGPT is to output linguistic text similar to humans' capabilities. Ultimately, we want the model to produce undifferentiable English text (compared to a human). The majority and basis of the architecture come from Andrej Karpathy's <a href="https://github.com/karpathy/nanoGPT">nanoGPT</a> GitHub repo; however, all analyses and text files are independent and licensed uniquely.
 
 ## Installation & Usage
 To install and run this project locally, please follow the written instructions below. Moreover, this installation guide assumes that you are working in a Python environment.
