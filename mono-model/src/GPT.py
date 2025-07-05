@@ -34,8 +34,6 @@ def generate_token(token, max_tokens):
     generated_ids = model.generate(input_ids, max_new_tokens=max_tokens)
     return (decode(generated_ids[0].tolist()))
 
-output = generate_token("The Prince", max_tokens=500)
-
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters())
 

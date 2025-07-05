@@ -1,3 +1,4 @@
+import api from './api';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import './App.css';
@@ -12,29 +13,53 @@ export default function App() {
   const [progress, setProgress] = useState(0);
   const [output, setOutput] = useState("");
 
-  const fakeTrain = () => {
+  const handleTrain = async () => {
     setMode("train");
+    setProgress(0);
     setOutput("");
-    let i = 0;
-    const interval = setInterval(() => {
-      setProgress(i);
-      if (i >= 100) {
-        clearInterval(interval);
-        setMode(null);
-      }
-      i += 5;
-    }, 100);
-  };
+  
+    try {
+      const res = await api.post('/train?epochs=1');
+  
+      let i = 0;
+      const interval = setInterval(() => {
+        setProgress(i);
+        if (i >= 100) {
+          clearInterval(interval);
+          setMode(null);
+        }
+        i += 5;
+      }, 100);
+  
+      console.log("Training finished:", res.data);
+    } catch (err) {
+      console.error("Training error:", err);
+    }
+  };  
 
-  const fakeGenerate = () => {
+  const handleGenerate = async () => {
     setMode("generate");
     setProgress(0);
-    setTimeout(() => {
-      setProgress(100);
-      setOutput("Here is the generated text: Lorem ipsum dolor sit amet...");
-      setMode(null);
-    }, 3000);
+    setOutput("");
+  
+    try {
+      const res = await api.post('/generate', {
+        prompt: "The Prince",
+        max_tokens: 100,
+      });
+  
+      // Simulate progress
+      setTimeout(() => {
+        setProgress(100);
+        setOutput(res.data.output);
+        setMode(null);
+      }, 3000);
+  
+    } catch (err) {
+      console.error("Generation error:", err);
+    }
   };
+  
 
   return (
     <>
@@ -116,14 +141,14 @@ export default function App() {
             <motion.button
               className="circle-button"
               whileTap={{ scale: 0.95 }}
-              onClick={fakeTrain}
+              onClick={handleTrain}
             >
               Train
             </motion.button>
             <motion.button
               className="circle-button"
               whileTap={{ scale: 0.95 }}
-              onClick={fakeGenerate}
+              onClick={handleGenerate}
             >
               Generate
             </motion.button>
