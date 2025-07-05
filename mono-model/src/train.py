@@ -81,48 +81,49 @@ model = BigramLanguageModel(vocab_size).to(config.device)
 optimizer = torch.optim.AdamW(model.parameters(), lr = config.learning_rate)
 model.train()
 
-def main():
+def main(num_user_epochs: int = 1):
     # Load checkpoint if exists
     start_epoch, start_loss = load_checkpoint(checkpoint_path, model, optimizer)
 
-    user_epochs = int(input(f"Current epoch is {start_epoch}. How many more epochs do you want to train?"))
-    num_epochs = start_epoch + user_epochs  # Compute total epochs
+    # user_epochs = int(input(f"Current epoch is {start_epoch}. How many more epochs do you want to train?"))
+    num_epochs = start_epoch + num_user_epochs  # Compute total epochs
 
-    csvfile = open(logs_path, "w", newline='') #open outside of with statement
-    fieldnames = ['step', 'train_loss', 'val_loss']
-    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-    writer.writeheader()
+    with open(logs_path, "w", newline='') as csvfile:
+        fieldnames = ['step', 'train_loss', 'val_loss']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
 
-    for epoch in range(start_epoch, num_epochs):
-        for iter in range(config.max_iters):
-            if iter % config.eval_interval == 0:
-                losses = estimate_loss()
-                print(f"step {iter}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")  # Write to console
-                writer.writerow({
-                    'step': iter,
-                    'train_loss': losses['train'].item(),
-                    'val_loss': losses['val'].item()
-                })  # Write to CSV
-            #sample a batch of data
-            xb, yb = get_batch('train')
+        for epoch in range(start_epoch, num_epochs):
+            for iter in range(config.max_iters):
+                if iter % config.eval_interval == 0:
+                    losses = estimate_loss()
+                    print(f"step {iter}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")  # Write to console
+                    writer.writerow({
+                        'step': iter,
+                        'train_loss': losses['train'].item(),
+                        'val_loss': losses['val'].item()
+                    })  # Write to CSV
+                #sample a batch of data
+                xb, yb = get_batch('train')
 
-            #evaluate the loss
-            logits, loss = model(xb, yb)
-            optimizer.zero_grad(set_to_none = True)
-            loss.backward()
-            optimizer.step()
+                #evaluate the loss
+                logits, loss = model(xb, yb)
+                optimizer.zero_grad(set_to_none = True)
+                loss.backward()
+                optimizer.step()
 
-        save_checkpoint(model, optimizer, epoch, loss.item(), checkpoint_path)
+            save_checkpoint(model, optimizer, epoch, loss.item(), checkpoint_path)
 
-        losses = estimate_loss()
-        print(f"Epoch {epoch}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
+            losses = estimate_loss()
+            print(f"Epoch {epoch}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
 
     model_state = config.BASE_DIR.parent / 'model' / 'final_model_weights.pth'
     optimizer_state = config.BASE_DIR.parent / 'model' / 'final_model_optimizer.pth'
 
-
     torch.save(model.state_dict(), model_state)
     torch.save(optimizer.state_dict(), optimizer_state)
+
+    return model, optimizer
 
 if __name__ == "__main__":
     main()
