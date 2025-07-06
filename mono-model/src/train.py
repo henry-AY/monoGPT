@@ -79,6 +79,9 @@ logs_path = config.BASE_DIR.parent / 'output' / 'datalogs' / 'training_log.csv'
 
 
 def main(num_user_epochs: int = 1):
+
+    model.train()  #Re-enable dropout/layernorm randomness for training
+
     model = BigramLanguageModel(vocab_size).to(config.device)
     optimizer = torch.optim.AdamW(model.parameters(), lr = config.learning_rate)
     model.train()
@@ -89,34 +92,34 @@ def main(num_user_epochs: int = 1):
     # user_epochs = int(input(f"Current epoch is {start_epoch}. How many more epochs do you want to train?"))
     num_epochs = start_epoch + num_user_epochs  # Compute total epochs
 
-    with open(logs_path, "w", newline='') as csvfile:
-        fieldnames = ['step', 'train_loss', 'val_loss']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
+    # with open(logs_path, "w", newline='') as csvfile:
+    #     fieldnames = ['step', 'train_loss', 'val_loss']
+    #     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    #     writer.writeheader()
 
-        for epoch in range(start_epoch, num_epochs):
-            for iter in range(config.max_iters):
-                if iter % config.eval_interval == 0:
-                    losses = estimate_loss(model)
-                    print(f"step {iter}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")  # Write to console
-                    writer.writerow({
-                        'step': iter,
-                        'train_loss': losses['train'].item(),
-                        'val_loss': losses['val'].item()
-                    })  # Write to CSV
+    for epoch in range(start_epoch, num_epochs):
+        for iter in range(config.max_iters):
+            if iter % config.eval_interval == 0:
+                losses = estimate_loss(model)
+                    # print(f"step {iter}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")  # Write to console
+                    # writer.writerow({
+                    #     'step': iter,
+                    #     'train_loss': losses['train'].item(),
+                    #     'val_loss': losses['val'].item()
+                    # })  # Write to CSV
                 #sample a batch of data
-                xb, yb = get_batch('train')
+            xb, yb = get_batch('train')
 
-                #evaluate the loss
-                logits, loss = model(xb, yb)
-                optimizer.zero_grad(set_to_none = True)
-                loss.backward()
-                optimizer.step()
+            #evaluate the loss
+            logits, loss = model(xb, yb)
+            optimizer.zero_grad(set_to_none = True)
+            loss.backward()
+            optimizer.step()
 
-            save_checkpoint(model, optimizer, epoch, loss.item(), checkpoint_path)
+        save_checkpoint(model, optimizer, epoch, loss.item(), checkpoint_path)
 
-            losses = estimate_loss(model)
-            print(f"Epoch {epoch}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
+        losses = estimate_loss(model)
+        print(f"Epoch {epoch}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
 
     model_state = config.BASE_DIR.parent / 'model' / 'final_model_weights.pth'
     optimizer_state = config.BASE_DIR.parent / 'model' / 'final_model_optimizer.pth'
@@ -127,6 +130,39 @@ def main(num_user_epochs: int = 1):
     print(f"Training completed up to epoch {num_epochs}")
 
     return model, optimizer
+
+def train_generator(model, optimizer, start_epoch, total_epochs):
+    print(f"Training started at {start_epoch}")
+
+    model.train()  #Re-enable dropout/layernorm randomness for training
+
+    total_iters = config.max_iters * total_epochs
+    completed_iters = 0
+
+    for epoch in range(start_epoch, start_epoch + total_epochs):
+        for iter in range(config.max_iters):
+            xb, yb = get_batch('train')
+            logits, loss = model(xb, yb)
+            optimizer.zero_grad(set_to_none=True)
+            loss.backward()
+            optimizer.step()
+
+            if iter % config.eval_interval == 0:
+                completed_iters += config.eval_interval
+                progress = int((completed_iters / total_iters) * 100)
+                yield {
+                    "progress": progress,
+                    "epoch": epoch,
+                    "iter": iter,
+                    "train_loss": loss.item()
+                }
+
+    # Save final state
+    save_checkpoint(model, optimizer, epoch, loss.item(), checkpoint_path)
+    model_state = config.BASE_DIR.parent / 'model' / 'final_model_weights.pth'
+    torch.save(model.state_dict(), model_state)
+
+    print(f"Training completed up to epoch {start_epoch + total_epochs}")
 
 if __name__ == "__main__":
     main()

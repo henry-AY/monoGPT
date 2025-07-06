@@ -13,28 +13,35 @@ export default function App() {
   const [progress, setProgress] = useState(0);
   const [output, setOutput] = useState("");
 
-  const handleTrain = async () => {
+  const handleTrain = () => {
     setMode("train");
     setProgress(0);
     setOutput("");
   
-    try {
-      const res = await api.post('/train?epochs=1');
+    const eventSource = new EventSource("http://localhost:8000/train-progress?epochs=1");
   
-      let i = 0;
-      const interval = setInterval(() => {
-        setProgress(i);
-        if (i >= 100) {
-          clearInterval(interval);
-          setMode(null);
-        }
-        i += 5;
-      }, 100);
+    eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data);
   
-      console.log("Training finished:", res.data);
-    } catch (err) {
-      console.error("Training error:", err);
-    }
+      // If training is complete
+      if (data.done) {
+        setMode(null);
+        eventSource.close();
+        console.log("Training completed.");
+      } else {
+        // Update progress bar
+        setProgress(data.progress);
+  
+        // Optionally show loss or other info in the UI
+        console.log(`Epoch ${data.epoch}, Iter ${data.iter}, Loss: ${data.train_loss}`);
+      }
+    };
+  
+    eventSource.onerror = (err) => {
+      console.error("EventSource failed:", err);
+      eventSource.close();
+      setMode(null);
+    };
   };  
 
   const handleGenerate = async () => {
@@ -120,6 +127,8 @@ export default function App() {
           <img src="/logos/numpy.svg" alt="NumPy" title="NumPy" />
           <img src="/logos/webgl.svg" alt="WebGL" title="WebGL" />
           <img src="/logos/react.svg" alt="React" title="React" />
+          <img src="/logos/fastapi.svg" alt="FastAPI" title="FastAPI" />
+          <img src="/logos/axios.svg" alt="Axios" title="Axios" />
         </div>
       </motion.div>
 

@@ -32,12 +32,16 @@ curr_epoch = checkpoint['epoch']
 # keep single instance of model, because in terms of efficiency and performance,
 # loading the weights is not that much more.
 def update_model_weights(new_model):
-    global model
     model.load_state_dict(new_model.state_dict())
 
 def generate_token(token, max_tokens):
+    random_seed = random.randint(0, sys.maxsize - 1)
+    torch.manual_seed(random_seed)
+
+    model.eval() # Set this to put in evaluation state
     input_ids = torch.tensor([encode(token)], dtype=torch.long).to(config.device)
-    generated_ids = model.generate(input_ids, max_new_tokens=max_tokens)
+    with torch.inference_mode():
+        generated_ids = model.generate(input_ids, max_new_tokens=max_tokens)
     return (decode(generated_ids[0].tolist()))
 
 def count_parameters(model):
