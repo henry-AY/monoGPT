@@ -1,3 +1,4 @@
+import api from './api';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import './App.css';
@@ -12,29 +13,60 @@ export default function App() {
   const [progress, setProgress] = useState(0);
   const [output, setOutput] = useState("");
 
-  const fakeTrain = () => {
+  const handleTrain = () => {
     setMode("train");
+    setProgress(0);
     setOutput("");
-    let i = 0;
-    const interval = setInterval(() => {
-      setProgress(i);
-      if (i >= 100) {
-        clearInterval(interval);
+  
+    const eventSource = new EventSource("http://localhost:8000/train-progress?epochs=1");
+  
+    eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+  
+      // If training is complete
+      if (data.done) {
         setMode(null);
+        eventSource.close();
+        console.log("Training completed.");
+      } else {
+        // Update progress bar
+        setProgress(data.progress);
+  
+        // Optionally show loss or other info in the UI
+        console.log(`Epoch ${data.epoch}, Iter ${data.iter}, Loss: ${data.train_loss}`);
       }
-      i += 5;
-    }, 100);
-  };
+    };
+  
+    eventSource.onerror = (err) => {
+      console.error("EventSource failed:", err);
+      eventSource.close();
+      setMode(null);
+    };
+  };  
 
-  const fakeGenerate = () => {
+  const handleGenerate = async () => {
     setMode("generate");
     setProgress(0);
-    setTimeout(() => {
-      setProgress(100);
-      setOutput("Here is the generated text: Lorem ipsum dolor sit amet...");
-      setMode(null);
-    }, 3000);
+    setOutput("");
+  
+    try {
+      const res = await api.post('/generate', {
+        prompt: "The Prince",
+        max_tokens: 500,
+      });
+  
+      // Simulate progress
+      setTimeout(() => {
+        setProgress(100);
+        setOutput(res.data.output);
+        setMode(null);
+      }, 3000);
+  
+    } catch (err) {
+      console.error("Generation error:", err);
+    }
   };
+  
 
   return (
     <>
@@ -51,6 +83,7 @@ export default function App() {
         whileHover={{ width: "250px" }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
+
         <div className="sidebar-content">
           <h2>MonoGPT</h2>
           <hr></hr>
@@ -75,18 +108,6 @@ export default function App() {
             <li>WebGL(OGL)</li>
             <li>PyTorch + Python (Backend)</li>
           </ul>
-
-          <p className="author">Author: henry-AY</p>
-
-          <div className="social-icons">
-            <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
-              <img src={linkedinIcon} alt="LinkedIn" />
-            </a>
-            <a href="https://github.com/henry-AY" target="_blank" rel="noopener noreferrer">
-              <img src={githubIcon} alt="GitHub" />
-            </a>
-          </div>
-          <p className="date">Created: Jun 27, 2025</p>
         </div>
 
         <div className="sidebar-tech-icons">
@@ -95,6 +116,12 @@ export default function App() {
           <img src="/logos/numpy.svg" alt="NumPy" title="NumPy" />
           <img src="/logos/webgl.svg" alt="WebGL" title="WebGL" />
           <img src="/logos/react.svg" alt="React" title="React" />
+          <img src="/logos/fastapi.svg" alt="FastAPI" title="FastAPI" />
+          <img src="/logos/axios.svg" alt="Axios" title="Axios" />
+        </div>
+
+        <div className="sidebar-toggle">
+          <span className="hamburger">&#9776;</span>
         </div>
       </motion.div>
 
@@ -116,14 +143,14 @@ export default function App() {
             <motion.button
               className="circle-button"
               whileTap={{ scale: 0.95 }}
-              onClick={fakeTrain}
+              onClick={handleTrain}
             >
               Train
             </motion.button>
             <motion.button
               className="circle-button"
               whileTap={{ scale: 0.95 }}
-              onClick={fakeGenerate}
+              onClick={handleGenerate}
             >
               Generate
             </motion.button>
@@ -149,8 +176,18 @@ export default function App() {
       <div style={{ height: '40vh' }} />
 
       <div className="footer-stats">
-        <p>Validation Loss: 0.012 &nbsp; | &nbsp; Training Loss: 0.018 &nbsp; | &nbsp; Epoch: 12 &nbsp; | &nbsp; Params: 85.1M</p>
-      </div>
+        <p className="info-line">Validation Loss: 0.012 &nbsp; | &nbsp; Training Loss: 0.018 &nbsp; | &nbsp; Epoch: 12 &nbsp; | &nbsp; Params: 85.1M</p>
+        <p className="author">Author: henry-AY</p>
+        <div className="social-icons">
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+            <img src={linkedinIcon} alt="LinkedIn" />
+          </a>
+          <a href="https://github.com/henry-AY" target="_blank" rel="noopener noreferrer">
+            <img src={githubIcon} alt="GitHub" />
+          </a>
+        </div>
+        <p className="date">Created: Jun 27, 2025</p>
+    </div>
 
     </>
   );
