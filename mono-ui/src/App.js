@@ -83,6 +83,7 @@ export default function App() {
         whileHover={{ width: "250px" }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
+
         <div className="sidebar-content">
           <h2>MonoGPT</h2>
           <hr></hr>
@@ -107,18 +108,6 @@ export default function App() {
             <li>WebGL(OGL)</li>
             <li>PyTorch + Python (Backend)</li>
           </ul>
-
-          <p className="author">Author: henry-AY</p>
-
-          <div className="social-icons">
-            <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
-              <img src={linkedinIcon} alt="LinkedIn" />
-            </a>
-            <a href="https://github.com/henry-AY" target="_blank" rel="noopener noreferrer">
-              <img src={githubIcon} alt="GitHub" />
-            </a>
-          </div>
-          <p className="date">Created: Jun 27, 2025</p>
         </div>
 
         <div className="sidebar-tech-icons">
@@ -129,6 +118,10 @@ export default function App() {
           <img src="/logos/react.svg" alt="React" title="React" />
           <img src="/logos/fastapi.svg" alt="FastAPI" title="FastAPI" />
           <img src="/logos/axios.svg" alt="Axios" title="Axios" />
+        </div>
+
+        <div className="sidebar-toggle">
+          <span className="hamburger">&#9776;</span>
         </div>
       </motion.div>
 
@@ -183,8 +176,18 @@ export default function App() {
       <div style={{ height: '40vh' }} />
 
       <div className="footer-stats">
-        <p>Validation Loss: 0.012 &nbsp; | &nbsp; Training Loss: 0.018 &nbsp; | &nbsp; Epoch: 12 &nbsp; | &nbsp; Params: 85.1M</p>
-      </div>
+        <p className="info-line">Validation Loss: 0.012 &nbsp; | &nbsp; Training Loss: 0.018 &nbsp; | &nbsp; Epoch: 12 &nbsp; | &nbsp; Params: 85.1M</p>
+        <p className="author">Author: henry-AY</p>
+        <div className="social-icons">
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+            <img src={linkedinIcon} alt="LinkedIn" />
+          </a>
+          <a href="https://github.com/henry-AY" target="_blank" rel="noopener noreferrer">
+            <img src={githubIcon} alt="GitHub" />
+          </a>
+        </div>
+        <p className="date">Created: Jun 27, 2025</p>
+    </div>
 
     </>
   );

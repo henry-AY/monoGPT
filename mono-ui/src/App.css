@@ -136,7 +136,8 @@ body, html {
   height: 100vh;
   background-color: #1c1c1c;
   color: #cccccc;
-  overflow: visible;
+  overflow-x: hidden;
+  overflow-y: auto;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
   z-index: 4;
   padding: 1rem;
@@ -144,28 +145,6 @@ body, html {
   flex-direction: column;
   justify-content: flex-start;
   transition: width 0.3s ease;
-}
-
-.sidebar::after {
-  content: "»";
-  position: absolute;
-  top: 50%;
-  right: -16px;
-  transform: translateY(-50%);
-  font-size: 30px;
-  color: #ccc;
-  opacity: 1;
-  pointer-events: none;
-  z-index: 5;
-  background-color: #1c1c1c;
-  border-radius: 3px;
-  padding: 2px 4px;
-  transition: content 0.3s, opacity 0.3s;
-}
-
-.sidebar:hover::after {
-  content: "«";
-  opacity: 1;
 }
 
 .sidebar-content {
@@ -185,46 +164,6 @@ body, html {
 .sidebar p {
   font-size: 0.9rem;
   margin: 0.5rem 0;
-}
-
-.sidebar .author {
-  position: absolute;
-  bottom: 3rem;
-  left: 1rem;
-  right: 1rem;
-  font-size: 0.8rem;
-  opacity: 0.6;
-}
-
-.sidebar .date {
-  position: absolute;
-  bottom: 2rem;
-  left: 1rem;
-  right: 1rem;
-  font-size: 0.5rem;
-  opacity: 0.6;
-  color: #f5f5f5;
-}
-
-.social-icons {
-  position: absolute;
-  bottom: 3.2rem;
-  left: 9rem;
-  display: flex;
-  gap: 0.5rem;
-  opacity: 0.8;
-}
-
-.social-icons img {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.social-icons img:hover {
-  transform: scale(1.2);
-  opacity: 1;
 }
 
 .sidebar-list {
@@ -270,23 +209,81 @@ body, html {
   filter: invert(1) brightness(1.2);
 }
 
+/* ============================
+   HAMBURGER
+============================= */
+.sidebar-toggle {
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  z-index: 10;
+}
 
+.hamburger {
+  font-size: 1.5rem;
+  color: #cccccc;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.hamburger:hover {
+  transform: scale(1.2);
+  color: #ffffff;
+}
 
 /* ============================
    FOOTER
 ============================= */
 .footer-stats {
-  position: relative;
-  bottom: 0;
-  left: 0;
   width: 100%;
   background-color: #111111;
   color: #aaaaaa;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   font-size: 0.85rem;
   text-align: center;
   box-shadow: 0 -1px 3px rgba(0,0,0,0.3);
   z-index: 3;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-stats .info-line {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.footer-stats .author {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.footer-stats .date {
+  font-size: 0.65rem;
+  opacity: 0.5;
+  color: #f5f5f5;
+}
+
+.footer-stats .social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 0.85;
+}
+
+.footer-stats .social-icons img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.footer-stats .social-icons img:hover {
+  transform: scale(1.2);
+  opacity: 1;
 }
 
 /* ============================
