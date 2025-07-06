@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from train import main as train_main
-from GPT import generate_token, generate_text, model  # reuse your generate function
+import GPT
 
 app = FastAPI()
 
@@ -30,13 +30,16 @@ def root():
 
 @app.post("/train")
 def train_model(epochs: int = Query(default=1, ge=1)):
-    model, _ = train_main(num_user_epochs=epochs)
+    new_model, _ = train_main(num_user_epochs=epochs)
+    GPT.update_model_weights(new_model)
+    print(f"training complete from training request")  # server console log
     return {"status": "training complete", "trained_epochs": epochs}
 
 @app.post("/generate")
 def generate_endpoint(req: GenerateRequest):
-    result = generate_text(req.prompt, max_tokens=req.max_tokens)
-    return {"output": result}
+    output = GPT.generate_token(req.prompt, max_tokens=req.max_tokens)
+    print(f"generate complete from request")  # server console log
+    return {"output": output}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000) 

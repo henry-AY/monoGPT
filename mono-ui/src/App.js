@@ -45,7 +45,7 @@ export default function App() {
     try {
       const res = await api.post('/generate', {
         prompt: "The Prince",
-        max_tokens: 100,
+        max_tokens: 500,
       });
   
       // Simulate progress

@@ -29,6 +29,12 @@ checkpoint_path = config.BASE_DIR.parent / 'model' / 'checkpoint.pth'
 checkpoint = torch.load(checkpoint_path, weights_only=True)
 curr_epoch = checkpoint['epoch']
 
+# keep single instance of model, because in terms of efficiency and performance,
+# loading the weights is not that much more.
+def update_model_weights(new_model):
+    global model
+    model.load_state_dict(new_model.state_dict())
+
 def generate_token(token, max_tokens):
     input_ids = torch.tensor([encode(token)], dtype=torch.long).to(config.device)
     generated_ids = model.generate(input_ids, max_new_tokens=max_tokens)

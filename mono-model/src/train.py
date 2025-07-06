@@ -97,7 +97,7 @@ def main(num_user_epochs: int = 1):
         for epoch in range(start_epoch, num_epochs):
             for iter in range(config.max_iters):
                 if iter % config.eval_interval == 0:
-                    losses = estimate_loss()
+                    losses = estimate_loss(model)
                     print(f"step {iter}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")  # Write to console
                     writer.writerow({
                         'step': iter,
