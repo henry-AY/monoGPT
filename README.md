@@ -14,9 +14,7 @@ The `README.md` is currently not up to date and will be updated shortly.
 
 > Author(s): Henry Yost (henry-AY), Jessy Garcia (jgarc826), Dmitry Sorokin (Dekamayaro)
 
-<p align="center">
-  <img src="readme_files/Page_1.png" width="" height=""/>
-</p>
+<img width="1436" alt="Home Screen" src="https://github.com/user-attachments/assets/7b6c070e-858f-40fd-869b-c1013c68e0ca" />
 
 MonoGPT includes a front-end application, used for training and generating output. The interface is designed to be intuitive and interactive; users can initiate model training directly from the GUI or request text generation based on trained weights. Each action is visually represented in the UI using animated button transitions and loading indicators that simulate the backend process.
 
