@@ -16,7 +16,7 @@ MonoGPT is a locally hosted front-end application capable of training and genera
 
 **Additional Info**: A <ins>Generative Pre-trained Transformer</ins> (GPT) is a type of artificial intelligence that understands and generates human-like text. We will be using the <a href="https://pytorch.org/docs/stable/nn.html"><ins>PyTorch.nn</a> (Neural network) library</ins> which houses transformer architecture. The goal of MonoGPT is to generate linguistic text that resembles human capabilities. Ultimately, we want the model to produce undifferentiable English text (compared to a human). The majority and basis of the architecture originates from Andrej Karpathy's <a href="https://github.com/karpathy/nanoGPT">nanoGPT</a> GitHub repository; however, all analyses and text files are independent and licensed separately.
 
-If you are interested in reading more about the architecture of monoGPT, please refer to [ARCHITECTURE.md](https://github.com/henry-AY/multilang-GPT/blob/5f0684cc8681df769c39f771a32dace65241fce3/ARCHITECTURE.md)
+If you are interested in reading more about the architecture of monoGPT, please refer to [ARCHITECTURE.md](https://github.com/henry-AY/monoGPT/blob/ea413814b004bf45ed3e5b44b3c686f4b9927998/ARCHITECTURE.md)
 
 ## Features + Tech Stack
 * Character-level tokenization and generation
