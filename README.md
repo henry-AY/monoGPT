@@ -38,7 +38,81 @@ To install and run this project locally, please follow the written instructions 
 > [!CAUTION]
 > This guide assumes you have both Python (for the backend + ML engine) and Node.js (for the frontend GUI). The setup assumes you're comfortable working in a terminal with virtual environments or Node package managers.
 
-> Continue
+### Prerequisites
+
+Ensure you have the following installed:
+
+- Python 3.8+
+- pip or pipenv
+- Node.js
+- npm
+
+### 1. Fork + Clone Repo
+```bash
+git clone https://github.com/<your-username>/monoGPT.git
+cd monoGPT
+```
+
+### 2. Create a virtual environment (optional, but highly recommended in this instance)
+```bash
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+### 3. Install Python dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Backend + Launch
+```bash
+cd mono-model/src
+uvicorn api:app --host 0.0.0.0 --port 8000;
+```
+
+### 5. Frontend + Setup
+
+To run the frontend locally, open a new terminal window, leaving the previous backend running:
+
+```bash
+cd mono-ui
+npm install                      # install all frontend packages
+npm install framer-motion axios  # in case not already installed
+npm start
+```
+
+This should open a new window on your browser @ 'http://localhost:3000/'
+
+If everything is done correctly, both the frontend and backend should be communicating with each other.
+
+You'll be able to:
+- Trigger training via GUI
+- Generate text interactively
+- Watch real-time feedback animations
+
+## Training and Sample Output (CLI)
+
+### 1. Generate Sample Output
+
+If you want to test model output via cmd line:
+
+First, navigate to the `mono-model/src` directory (if not already in it).
+
+```bash
+python3 GPT.py
+```
+
+This will generate text from your currently trained weights.
+
+### 2. Train the Model
+
+Update your dataset/configs in `config.py`, then navigate to `mono-model/src` directory (if not already in it).
+
+```bash
+python3 train.py
+```
+
+This will save the model weights in `mono-model/model` folder, which are accessible for text generation. 
 
 ## References
 
