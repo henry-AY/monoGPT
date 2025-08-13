@@ -179,10 +179,10 @@ export default function App() {
         <p className="info-line">Validation Loss: 0.012 &nbsp; | &nbsp; Training Loss: 0.018 &nbsp; | &nbsp; Epoch: 12 &nbsp; | &nbsp; Params: 85.1M</p>
         <p className="author">Author: henry-AY</p>
         <div className="social-icons">
-          <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.linkedin.com/in/henry-yost/" target="_blank" rel="noopener noreferrer">
             <img src={linkedinIcon} alt="LinkedIn" />
           </a>
-          <a href="https://github.com/henry-AY" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/henry-AY/" target="_blank" rel="noopener noreferrer">
             <img src={githubIcon} alt="GitHub" />
           </a>
         </div>
