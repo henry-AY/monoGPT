@@ -10,7 +10,7 @@
 [![Node.js](https://img.shields.io/badge/Node.js-43853D?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-005571?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 
-<img width="1436" alt="Home Screen" src="https://github.com/user-attachments/assets/7b6c070e-858f-40fd-869b-c1013c68e0ca" />
+![MonoGPTshowcase_1280_20_fullcolor](https://github.com/user-attachments/assets/48741b1f-bc28-4af3-b46f-a8d00937dd4b)
 
 MonoGPT is a locally hosted front-end application capable of training and generating output from custom-trained model weights. The interface is designed to be intuitive and interactive; users can initiate model training directly from the GUI or request text generation as well. Each action is visually represented in the UI through animations that illustrate the underlying back-end process. Additionally, MonoGPT does not use HuggingFace transformers, giving you complete control over the transformer(s) implementation with raw PyTorch code.
 
