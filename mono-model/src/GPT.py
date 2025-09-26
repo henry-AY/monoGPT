@@ -22,11 +22,11 @@ state_dict = config.BASE_DIR.parent / 'model' / 'final_model_weights.pth'
 
 model = BigramLanguageModel(vocab_size).to(config.device)
 
-model.load_state_dict(torch.load(state_dict, weights_only=True))
+model.load_state_dict(torch.load(state_dict, weights_only=False))
 model.eval()
 
 checkpoint_path = config.BASE_DIR.parent / 'model' / 'checkpoint.pth'
-checkpoint = torch.load(checkpoint_path, weights_only=True)
+checkpoint = torch.load(checkpoint_path, weights_only=False)
 curr_epoch = checkpoint['epoch']
 
 # keep single instance of model, because in terms of efficiency and performance,
