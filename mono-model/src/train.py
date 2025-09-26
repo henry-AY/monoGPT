@@ -79,9 +79,6 @@ logs_path = config.BASE_DIR.parent / 'output' / 'datalogs' / 'training_log.csv'
 
 
 def main(num_user_epochs: int = 1):
-
-    model.train()  #Re-enable dropout/layernorm randomness for training
-
     model = BigramLanguageModel(vocab_size).to(config.device)
     optimizer = torch.optim.AdamW(model.parameters(), lr = config.learning_rate)
     model.train()
@@ -89,7 +86,7 @@ def main(num_user_epochs: int = 1):
     # Load checkpoint if exists
     start_epoch, start_loss = load_checkpoint(checkpoint_path, model, optimizer)
 
-    # user_epochs = int(input(f"Current epoch is {start_epoch}. How many more epochs do you want to train?"))
+    num_user_epochs = int(input(f"Current epoch is {start_epoch}. How many more epochs do you want to train?"))
     num_epochs = start_epoch + num_user_epochs  # Compute total epochs
 
     # with open(logs_path, "w", newline='') as csvfile:
