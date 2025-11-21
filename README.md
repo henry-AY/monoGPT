@@ -46,6 +46,25 @@ Ensure you have the following installed:
 - pip or pipenv
 - Node.js
 - npm
+- GitLFS
+
+### ⚠️ Required: Install Git LFS Before Cloning
+
+The model weights are stored using Git Large File Storage (Git LFS). If Git LFS is not installed before cloning, the model directory will contain pointer files instead of actual weights, and the model will fail to load.
+
+#### Install Git LFS
+
+macOS (Homebrew)
+```bash
+brew install git-lfs
+git lfs install
+```
+
+### Linux
+```bash
+sudo apt-get install git-lfs
+git lfs install
+```
 
 ### 1. Fork + Clone Repo
 ```bash
