@@ -60,7 +60,7 @@ brew install git-lfs
 git lfs install
 ```
 
-### Linux
+Linux
 ```bash
 sudo apt-get install git-lfs
 git lfs install
